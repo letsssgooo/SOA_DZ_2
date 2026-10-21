@@ -1,0 +1,52 @@
+openapi: 3.0.4
+info:
+  title: Marketplace API
+  description: |
+    API для управления товарами маркетплейса.
+
+    Общие ошибки маршрутизации возвращаются в формате ErrorResponse с Content-Type application/json:
+    - 404 ROUTE_NOT_FOUND — запрошенный путь не соответствует ни одному маршруту API.
+    - 405 METHOD_NOT_ALLOWED — путь существует, но HTTP-метод для него не поддерживается.
+
+    Эти ошибки не привязаны к отдельным операциям в paths.
+    Для существующих операций товаров ответ 404 PRODUCT_NOT_FOUND означает отсутствие товара в БД.
+    Каждый ответ содержит X-Request-Id — UUID запроса, сформированный сервером.
+  version: 1.0.0
+
+paths:
+  /products:
+    $ref: './paths/products.yaml'
+  /products/{id}:
+    $ref: './paths/product-by-id.yaml'
+
+components:
+  headers:
+    RequestId:
+      description: UUID запроса, сформированный сервером и записанный в журнал API
+      schema:
+        type: string
+        format: uuid
+  schemas:
+    ProductCreate:
+      $ref: './schemas/product-create.yaml'
+    ProductUpdate:
+      $ref: './schemas/product-update.yaml'
+    ProductResponse:
+      $ref: './schemas/product-response.yaml'
+    OrderItem:
+      $ref: './schemas/order-item.yaml'
+    OrderCreate:
+      $ref: './schemas/order-create.yaml'
+    OrderUpdate:
+      $ref: './schemas/order-update.yaml'
+    ErrorCode:
+      $ref: './schemas/error-code.yaml'
+    ErrorResponse:
+      $ref: './schemas/error-response.yaml'
+  responses:
+    ValidationError:
+      $ref: './responses/validation-error.yaml'
+    ProductNotFound:
+      $ref: './responses/product-not-found.yaml'
+    InternalServerError:
+      $ref: './responses/internal-server-error.yaml'

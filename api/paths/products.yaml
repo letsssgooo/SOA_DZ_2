@@ -1,0 +1,96 @@
+post:
+  description: Создание товара
+  operationId: createProduct
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/product-create.yaml'
+  responses:
+    '201':
+      description: Товар создан
+      headers:
+        X-Request-Id:
+          $ref: '../openapi.yaml#/components/headers/RequestId'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/product-response.yaml'
+    '400':
+      $ref: '../openapi.yaml#/components/responses/ValidationError'
+    '500':
+      $ref: '../openapi.yaml#/components/responses/InternalServerError'
+get:
+  description: Получение списка товаров
+  operationId: getProducts
+  parameters:
+    - name: page
+      in: query
+      description: Номер страницы, начиная с 0
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    - name: size
+      in: query
+      description: Размер страницы
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 20
+    - name: status
+      in: query
+      description: Фильтрация по статусу товара
+      required: false
+      schema:
+        type: string
+        enum:
+          - ACTIVE
+          - INACTIVE
+          - ARCHIVED
+    - name: category
+      in: query
+      description: Фильтрация по точному совпадению категории
+      required: false
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Список товаров получен
+      headers:
+        X-Request-Id:
+          $ref: '../openapi.yaml#/components/headers/RequestId'
+      content:
+        application/json:
+          schema:
+            type: object
+            required:
+              - items
+              - totalElements
+              - page
+              - size
+            properties:
+              items:
+                description: Товары текущей страницы
+                type: array
+                items:
+                  $ref: '../schemas/product-response.yaml'
+              totalElements:
+                description: Общее количество товаров после фильтрации до пагинации
+                type: integer
+                minimum: 0
+              page:
+                description: Номер текущей страницы, начиная с 0
+                type: integer
+                minimum: 0
+              size:
+                description: Размер страницы
+                type: integer
+                minimum: 1
+    '400':
+      $ref: '../openapi.yaml#/components/responses/ValidationError'
+    '500':
+      $ref: '../openapi.yaml#/components/responses/InternalServerError'

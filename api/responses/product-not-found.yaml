@@ -1,0 +1,8 @@
+description: Товар с указанным ID не найден при чтении, обновлении или архивации
+headers:
+  X-Request-Id:
+    $ref: '../openapi.yaml#/components/headers/RequestId'
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/error-response.yaml'

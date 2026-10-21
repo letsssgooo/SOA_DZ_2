@@ -1,0 +1,33 @@
+description: |
+  Машиночитаемый код ошибки и соответствующий HTTP-статус:
+
+  - PRODUCT_NOT_FOUND — 404: товар не найден по ID.
+  - PRODUCT_INACTIVE — 409: попытка заказать неактивный товар.
+  - ORDER_NOT_FOUND — 404: заказ не найден по ID.
+  - ORDER_LIMIT_EXCEEDED — 429: превышен лимит частоты создания или обновления заказа.
+  - ORDER_HAS_ACTIVE — 409: у пользователя уже есть заказ в состоянии CREATED или PAYMENT_PENDING.
+  - INVALID_STATE_TRANSITION — 409: недопустимый переход состояния заказа.
+  - INSUFFICIENT_STOCK — 409: недостаточно товара на складе.
+  - PROMO_CODE_INVALID — 422: промокод не найден, истёк, исчерпан или неактивен.
+  - PROMO_CODE_MIN_AMOUNT — 422: сумма заказа ниже минимальной для промокода.
+  - ORDER_OWNERSHIP_VIOLATION — 403: заказ принадлежит другому пользователю.
+  - VALIDATION_ERROR — 400: ошибка валидации входных данных.
+  - INTERNAL_SERVER_ERROR — 500: непредвиденная внутренняя ошибка сервера.
+  - ROUTE_NOT_FOUND — 404: запрошенный маршрут не существует.
+  - METHOD_NOT_ALLOWED — 405: HTTP-метод не поддерживается для запрошенного маршрута.
+type: string
+enum:
+  - PRODUCT_NOT_FOUND
+  - PRODUCT_INACTIVE
+  - ORDER_NOT_FOUND
+  - ORDER_LIMIT_EXCEEDED
+  - ORDER_HAS_ACTIVE
+  - INVALID_STATE_TRANSITION
+  - INSUFFICIENT_STOCK
+  - PROMO_CODE_INVALID
+  - PROMO_CODE_MIN_AMOUNT
+  - ORDER_OWNERSHIP_VIOLATION
+  - VALIDATION_ERROR
+  - INTERNAL_SERVER_ERROR
+  - ROUTE_NOT_FOUND
+  - METHOD_NOT_ALLOWED

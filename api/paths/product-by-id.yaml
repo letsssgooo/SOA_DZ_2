@@ -1,0 +1,67 @@
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: Идентификатор товара
+    schema:
+      type: string
+      format: uuid
+get:
+  description: Получение товара по ID
+  operationId: getProductById
+  responses:
+    '200':
+      description: Товар получен
+      headers:
+        X-Request-Id:
+          $ref: '../openapi.yaml#/components/headers/RequestId'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/product-response.yaml'
+    '400':
+      $ref: '../openapi.yaml#/components/responses/ValidationError'
+    '404':
+      $ref: '../openapi.yaml#/components/responses/ProductNotFound'
+    '500':
+      $ref: '../openapi.yaml#/components/responses/InternalServerError'
+put:
+  description: Обновление товара
+  operationId: updateProduct
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          $ref: '../schemas/product-update.yaml'
+  responses:
+    '200':
+      description: Товар обновлён
+      headers:
+        X-Request-Id:
+          $ref: '../openapi.yaml#/components/headers/RequestId'
+      content:
+        application/json:
+          schema:
+            $ref: '../schemas/product-response.yaml'
+    '400':
+      $ref: '../openapi.yaml#/components/responses/ValidationError'
+    '404':
+      $ref: '../openapi.yaml#/components/responses/ProductNotFound'
+    '500':
+      $ref: '../openapi.yaml#/components/responses/InternalServerError'
+delete:
+  description: Мягкое удаление товара — перевод в статус ARCHIVED без физического удаления записи.
+  operationId: archiveProduct
+  responses:
+    '204':
+      description: Товар переведён в статус ARCHIVED
+      headers:
+        X-Request-Id:
+          $ref: '../openapi.yaml#/components/headers/RequestId'
+    '400':
+      $ref: '../openapi.yaml#/components/responses/ValidationError'
+    '404':
+      $ref: '../openapi.yaml#/components/responses/ProductNotFound'
+    '500':
+      $ref: '../openapi.yaml#/components/responses/InternalServerError'

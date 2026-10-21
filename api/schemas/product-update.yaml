@@ -1,0 +1,35 @@
+description: Запрос обновления товара
+type: object
+additionalProperties: true
+required:
+  - name
+  - price
+  - stock
+  - category
+  - status
+properties:
+  name:
+    type: string
+    minLength: 1
+    maxLength: 255
+  description:
+    type: string
+    nullable: true
+    maxLength: 4000
+  price:
+    type: number
+    format: decimal
+    minimum: 0.01
+  stock:
+    type: integer
+    minimum: 0
+  category:
+    type: string
+    minLength: 1
+    maxLength: 100
+  status:
+    type: string
+    enum:
+      - ACTIVE
+      - INACTIVE
+      - ARCHIVED

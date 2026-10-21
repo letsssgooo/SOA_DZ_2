@@ -1,0 +1,8 @@
+description: Непредвиденная внутренняя ошибка сервера; технические подробности не передаются клиенту
+headers:
+  X-Request-Id:
+    $ref: '../openapi.yaml#/components/headers/RequestId'
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/error-response.yaml'

@@ -1,0 +1,10 @@
+generatorName: go-server
+inputSpec: /app/api/openapi.yaml
+outputDir: /app/internal/gen/openapi
+
+additionalProperties:
+  packageName: openapi
+  outputAsLibrary: true
+  onlyInterfaces: true
+  router: chi
+  sourceFolder: .

@@ -1,0 +1,8 @@
+description: Некорректное тело запроса, UUID или query-параметры в зависимости от вызываемой операции
+headers:
+  X-Request-Id:
+    $ref: '../openapi.yaml#/components/headers/RequestId'
+content:
+  application/json:
+    schema:
+      $ref: '../schemas/error-response.yaml'

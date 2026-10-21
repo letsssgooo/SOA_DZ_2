@@ -1,0 +1,18 @@
+description: Ответ API при ошибке
+type: object
+required:
+  - error_code
+  - message
+properties:
+  error_code:
+    $ref: './error-code.yaml'
+  message:
+    description: Описание ошибки для клиента без SQL, паролей и внутренних сообщений сервера
+    type: string
+  details:
+    description: |
+      Дополнительные сведения об ошибке: идентификаторы, ошибки полей и вложенные списки.
+      Ошибки полей передаются в details.fields: ключ — JSON-имя поля,
+      значение — массив сообщений о нарушениях.
+    type: object
+    additionalProperties: true
