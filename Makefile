@@ -26,3 +26,20 @@ migrate:
 migrate-info:
 	$(FLYWAY) info
 
+.PHONY: up stop test test-e2e logs
+
+up:
+	docker compose up --build -d
+
+stop:
+	docker compose stop
+
+test:
+	go test ./...
+
+test-e2e:
+	go test -tags=e2e -v -count=1 ./tests
+
+logs:
+	@docker compose logs -f --tail=0 --no-color --no-log-prefix app | jq --unbuffered -M .
+
